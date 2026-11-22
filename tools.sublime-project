@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": ".",
+		}
+	],
+	"settings": {
+		"rulers": [
+			[ // max line length for python docstrings
+				72,
+				"stippled",
+				0.5
+			],
+			79 // max line length
+		],
+		"lsp_format_on_save": true,
+		"default_line_ending": "unix",
+		"LSP": {
+			"LSP-Deno": {
+				"enabled": true,
+				"deno.lint": true,
+				"deno.suggest.completeFunctionCalls": true,
+				"deno.suggest.autoImports": true,
+				"deno.suggest.imports.autoDiscover": true
+			}
+		},
+	},
+	"debugger_configurations": [
+		{
+			"name": "Python: Current File",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+		},
+		{ // use this one for debugging
+			"name": "Python: Current File (ext terminal)",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "externalTerminal",
+		}
+	]
+}
