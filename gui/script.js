@@ -34,7 +34,7 @@ addEventListener("pywebviewready", () => {
 
 	header.addEventListener("mousedown", (event) => {
 		if (event.target.tagName == "HEADER") {
-			pywebview.api.maximize("restore");
+			pywebview.api.toggle_maximize("restore");
 		}
 	});
 });
