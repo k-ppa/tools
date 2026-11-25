@@ -1,4 +1,4 @@
-# NOTE: Get color palette from internet and use it
+# TODO: Get color palette from internet and use it
 
 from pathlib import Path
 
@@ -14,13 +14,13 @@ state = {"min": False, "max": False}
 print("Loading...", end="", flush=True)
 
 
-def window_minimized():
+def on_minimize():
     state["min"] = True
     window.evaluate_js('max.firstElementChild.src = "../../icons/maximize.svg";')  # ty: ignore[missing-union-attribute]
     print("Minimized")
 
 
-def window_maximized(maximized: bool = True):
+def on_maximize(maximized: bool = True):
     if maximized:
         state["max"] = True
         window.evaluate_js('max.firstElementChild.src = "../../icons/minimize.svg";')  # ty: ignore[missing-union-attribute]
@@ -42,7 +42,7 @@ class Api:
         window.minimize()  # ty: ignore[missing-union-attribute]
         print("Minimize function ran")
 
-    def maximize(self, mode="auto"):
+    def toggle_maximize(self, mode="auto"):
         if (state["max"] or mode == "restore") and mode != "maximize":
             window.restore()  # ty: ignore[missing-union-attribute]
             print("Maximize function ran (restored)")
@@ -74,16 +74,13 @@ if window is None:
 window.events.before_show += lambda: print("\rGUI Loading...", end="")
 window.events.loaded += lambda: print(
     "\rGUI opened in another window",
-    "\nPress 'Ctrl'+'C', press the close button in the GUI or close this terminal to close the program",
+    "\nPress the close button in the GUI, press 'Ctrl'+'C' in this terminal",
+    "or close this terminal to end the program\n",
     flush=True,
 )
 window.events.closed += lambda: print("Window destroyed")
-window.events.maximized += lambda: window_maximized()
-window.events.restored += lambda: window_maximized(False)
-window.events.minimized += lambda: window_minimized()
+window.events.maximized += lambda: on_maximize()
+window.events.restored += lambda: on_maximize(False)
+window.events.minimized += lambda: on_minimize()
 webview.start(gui="qt", debug=False, icon=str(logo))
 print("WebView event loop ended")
-print(
-    "Close this terminal if it hasn't automatically closed "
-    "as the program may keep running in the background (sometimes)"
-)

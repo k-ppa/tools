@@ -19,7 +19,7 @@ addEventListener("pywebviewready", () => {
 	});
 
 	max.addEventListener("click", () => {
-		pywebview.api.maximize();
+		pywebview.api.toggle_maximize();
 	});
 
 	close.addEventListener("click", () => {
@@ -28,7 +28,7 @@ addEventListener("pywebviewready", () => {
 
 	header.addEventListener("dblclick", (event) => {
 		if (event.target.tagName == "HEADER") {
-			pywebview.api.maximize();
+			pywebview.api.toggle_maximize();
 		}
 	});
 
